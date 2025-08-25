@@ -1,11 +1,14 @@
 import readline from "readline"; 
 import { LeerArchivo } from "./CargarArchivo.js";
+import { ReporteHTML } from "./ExportarHistorial.js";
 
 export function IniciarMenu() {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
   });
+
+  let archivo = []; // Variable para almacenar los registros cargados
 
   function Menu() {
     console.log("\n----------------- CONTROL DE CALL CENTER -----------------");
@@ -18,20 +21,26 @@ export function IniciarMenu() {
     console.log("| 7. Mostrar Cantidad de Llamadas por Calificación          | ");
     console.log("| 8. Salir                                                  |");
     console.log(" -----------------------------------------------------------");
-    rl.question("| Seleccione una opción: ", handleMenuOption);
+    rl.question("-> Seleccione una opción: ", handleMenuOption);
   }
 
   function handleMenuOption(opcion) {
     switch (opcion.trim()) {
         case "1":
-            rl.question("Ingrese el nombre del archivo CSV: ", (archivo) => {
-            LeerArchivo(archivo);
+            rl.question("Ingrese el nombre del archivo CSV: ", (nombreArchivo) => {
+            archivo = LeerArchivo(nombreArchivo); // ← Aquí guardas los datos correctamente
             Menu(); 
             });
             break;
         case "2":
-            console.log("Exportando historial de llamadas...");
+            if (archivo.length === 0) {
+              console.log("No hay datos cargados. Por favor, cargue un archivo primero.");
+            } else {
+              ReporteHTML(archivo);
+            }
+              Menu();
             break;
+
         case "3":
             console.log("Exportando listado de operadores...");
             Menu();
