@@ -1,6 +1,7 @@
 import readline from "readline"; 
 import { LeerArchivo } from "./CargarArchivo.js";
 import { ReporteHTML } from "./ExportarHistorial.js";
+import { contarClasificaciones, porcentajeClasificaciones } from "./Operaciones.js";
 
 export function IniciarMenu() {
   const rl = readline.createInterface({
@@ -8,18 +9,17 @@ export function IniciarMenu() {
     output: process.stdout
   });
 
-  let archivo = []; // Variable para almacenar los registros cargados
+  let archivo = []; // almacena los registros cargados
 
   function Menu() {
     console.log("\n----------------- CONTROL DE CALL CENTER -----------------");
     console.log("| 1. Cargar Registros de Llamadas                           |");
-    console.log("| 2. Exportar Historial de Llamadas                         |");
-    console.log("| 3. Exportar Listado de Operadores                         |");
-    console.log("| 4. Exportar Listado de Clientes                           | ");
-    console.log("| 5. Exportar Rendimiento de Operadores                     |");
-    console.log("| 6. Mostrar Porcentaje de Clasificación de Llamadas        | ");
-    console.log("| 7. Mostrar Cantidad de Llamadas por Calificación          | ");
-    console.log("| 8. Salir                                                  |");
+    console.log("| 2. Generar reportes (Exportar Historial de Llamadas,      |");
+    console.log("|    Listado de Operadores, Listado de Clientes y           |");
+    console.log("|    Rendimiento de Operadores)                             |");
+    console.log("| 3. Mostrar Porcentaje de Clasificación de Llamadas        | ");
+    console.log("| 4. Mostrar Cantidad de Llamadas por Calificación          | ");
+    console.log("| 5. Salir                                                  |");
     console.log(" -----------------------------------------------------------");
     rl.question("-> Seleccione una opción: ", handleMenuOption);
   }
@@ -42,10 +42,22 @@ export function IniciarMenu() {
             break;
 
         case "3":
-            console.log("Exportando listado de operadores...");
-            Menu();
+            if (archivo.length === 0) {
+              console.log("No hay datos cargados. Por favor, cargue un archivo primero.");
+            } else {
+              porcentajeClasificaciones(archivo);
+            }
+              Menu();
             break;
         case "4":
+            if (archivo.length === 0) {
+              console.log("No hay datos cargados. Por favor, cargue un archivo primero.");
+            } else {
+              contarClasificaciones(archivo);
+            }
+              Menu();
+            break;
+        case "5":
             console.log("Saliendo del programa...");
             rl.close();
             break;

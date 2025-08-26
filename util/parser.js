@@ -1,4 +1,4 @@
-import Trabajador from "../Practica/trabajador";
+import Trabajador from "../Practica/CallCenter";
 
 export function parseLine(line) { // Función para convertir una línea CSV en un objeto Trabajador
     const parts = line.split(',').map(p => p.trim()); // Limpia espacios y divide por comas
