@@ -15,10 +15,10 @@ export default class CallCenter{
     }
 
     clasificarOperador() {
-        if (this.estrellas >= 5) return "Buenisimo";
-        if (this.estrellas >= 3) return "Regular";
-        if (this.estrellas >= 1) return "Malo";
-        return "nadota";
+        if (this.estrellas <= 1) return "Malo";
+        if (this.estrellas <= 3) return "Regular";
+        if (this.estrellas <= 5) return "Buenisimo";
+        return "ninguno";
     }
 
 }

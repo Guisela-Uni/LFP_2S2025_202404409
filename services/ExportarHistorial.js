@@ -76,11 +76,11 @@ export function ReporteHTML(archivo){
                 </tr>
         `;
 
-        Clientes.forEach(r => {
+        Clientes.forEach((nombre, id) => {
             html += `
                 <tr>                    
-                    <td>${r.id}</td>
-                    <td>${r.nombre}</td>
+                    <td>${id}</td>
+                    <td>${nombre}</td>
                 </tr>
             `;
         });
@@ -99,15 +99,15 @@ export function ReporteHTML(archivo){
                 </tr>
         `;
 
-        Object.entries(porcentaje(Operadores, archivo.length)).forEach(([nombre]) => {
-            const id = [...Operadores].find(([_, n]) => n === nombre)[0];
-            const porcentaje = (([...Operadores].find(([_, n]) => n === nombre)[1] / archivo.length) * 100).toFixed(2);
-            html += `
-                <tr>                    
-                    <td>${id}</td>
-                    <td>${nombre}</td>
-                    <td>${porcentaje}%</td>
-                </tr>
+        Object.entries(porcentaje(Operadores, archivo)).forEach(([nombre, valor]) => {
+        const id = [...Operadores].find(([id, n]) => n === nombre)?.[0] || 'N/A';
+        const porcentajeStr = (valor * 100).toFixed(2);
+        html += `
+            <tr>                    
+                <td>${id}</td>
+                <td>${Operadores.nombre}</td>
+                <td>${porcentajeStr}%</td>
+            </tr>
             `;
         });
         html += `

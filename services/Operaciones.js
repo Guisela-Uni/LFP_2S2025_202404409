@@ -47,7 +47,7 @@ export function contarClasificaciones(registros) {
     Buenisimo: 0,
     Regular: 0,
     Malo: 0,
-    nadota: 0
+    ninguno: 0
   };
 
   registros.forEach(r => {
@@ -59,7 +59,7 @@ export function contarClasificaciones(registros) {
     }
   });
 
-  console.log("-------- Clasificación de operadores --------");
+  console.log("-------- Clasificación del rendimiento de Operadores --------");
   Object.entries(conteo).forEach(([tipo, cantidad]) => {
     console.log(`- ${tipo}: ${cantidad}`);
   });
